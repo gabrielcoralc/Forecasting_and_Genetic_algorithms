@@ -6,11 +6,10 @@ Created on Wed Apr 29 09:15:45 2020
 """
 import pandas as pd
 import numpy as np
-from sklearn.linear_model import LinearRegression
 import statsmodels.formula.api as smf
 from funciones_AG import pob_ini,bi_to_hex,pob_new
 
-N=7
+N=7 #Numero de pasos a predecir a futuro
 
 ##Parametros iniciales AG
 Npoblacion=50 #El numero de individuos en nuestra poblacion #Multiplo de 2
@@ -24,16 +23,16 @@ bias=0 #Parametro para acotar las soluciones y= alpha*x + b (siendo x el resulta
 FitnessGeneracion=[] ##Guarda el mejor fitness por generacion para llevar control
 
 
-mainpath="C:/Users/Gabri/Documents/python codes/prueba proyeccion consumos"
-filepath="/TEST.xlsx"
-data=pd.read_excel(mainpath+filepath)
+
+filepath="TEST.xlsx" #Archivo con la serie de tiempo a trabajar
+data=pd.read_excel(filepath)
 CODIGO_SIC=data[0].unique().tolist()
 
 
 
+##Para la proyeccion de consumos se utilizo el MÉTODO DE HOLT - WINTERS,
+#La matematica y ejemplos graficos se encuentran en el archivo excel Plantilla PPCP NUEVA 9 de septiembre.xlsx
 
-#data_consumos=data.transpose()
-#p=data_consumos.iloc[3:,0].tolist()
 PredT=[]
 for frt in CODIGO_SIC:
     p=data[data[0]==frt].iloc[0,3:].tolist()
@@ -125,7 +124,7 @@ for frt in CODIGO_SIC:
             Pred+=list([0])
     PredT.append(Pred)
 data_pred=pd.DataFrame(PredT)
-data=pd.merge(left= data, right=data_pred,how="outer",left_on=0,right_on=0)
+data=pd.merge(left= data, right=data_pred,how="outer",left_on=0,right_on=0) # Guardamos los resultados en un Df para que puede ser transformado/utilizado con mayor facilidad a futuro
     
     
     

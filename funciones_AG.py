@@ -4,9 +4,34 @@ Created on Thu May 21 14:18:00 2020
 
 @author: Gabri
 """
+##Cuando realice este algoritmo, fue debido a que no encontre una libreria que realizar un proceso de optimizacion
+# de las variables de una funcion, o al menos no encontre alguna que pudiera entender, por lo que realice
+#estan funciones basadas en los algortimos de optimizacion en algoritmos geneticos, en donde
+#una poblacion inicial de valores se va modificando de manera que se acerque al mejor posible segun
+#una funcion de fitness.
+#Este codigo lo realice cuando apenas estaba aprendiendo programacion en python, por lo que deberia tener mucho por mejorar
+#tanto en simplicidad del codigo, como que se deberia crear un empaquetado de todas las funciones.
+
+
+import numpy as np
+import pandas as pd
 
 def pob_ini(variables,Npoblacion,gen):
-    import numpy as np
+    """La funcion crea las matrices con valores binarios que se considera como la poblacion inicial para un algoritmo genetico
+        Parameters
+        ----------
+        variables : int
+            Numero de variables que queremos trabajar
+        Npoblacion : int
+            El numero de individuos en nuestra poblacion. Esta debe ser un Multiplo de 2
+        Gen: int
+            El numero de genes que va a tener cada individuo
+        Returns
+        -------
+        list(list(np.array))
+            Retorna una lista de lista, en cada lista hay una matriz con valores binarios que representa la poblacion de cada variable
+        """
+    
     poblacion={}
     for x in range(variables): ##Se genera un poblacion de Npoblacion individuos para cada Variable
         p=[]
@@ -17,6 +42,23 @@ def pob_ini(variables,Npoblacion,gen):
     return poblacion
 
 def bi_to_hex(poblacion,variables,alpha,bias):
+    """La funcion hace la transformacion de los individuos, el cual es un vector que representa un numero binario pasarlo a hexadecimal
+        y asi usalor en nuestra funcion de fitness
+    Parameters
+    ----------
+    poblacion : list(list(np.array))
+        Lista de matrices que represanta la poblacion en algortimos geneticos
+    variables : int
+        Numero de variables que queremos trabajar
+    alpha: int
+        Valor que acota las posibles soluciones de cada individuo entre (0,alpha)
+    bias: int
+        Parametro para acotar las soluciones y= alpha*x + b (siendo x el resultado de los genes de un individuo)
+    Returns
+    -------
+    list(list(np.array))
+        Retorna una nueva poblacion
+    """
     Rvariables=[]
     for x in range(len(poblacion[0])):
         var=[]
@@ -33,8 +75,32 @@ def bi_to_hex(poblacion,variables,alpha,bias):
     return Rvariables
 
 def pob_new(Fitness,Rvariables,FitnessGeneracion,variables,poblacion,cruce,mutacion):
-    import pandas as pd
-    import numpy as np
+    
+    """La funcion modifica la poblacion que se le entrega, apartir de un proceso en donde se eligen las mejores 
+        soluciones apartir de su fitness, y estas son modificadas en un proceso de cruce y de mutacion
+    Parameters
+    ----------
+    Fitness : list(list())
+        Lista de matrices que represanta la poblacion en algortimos geneticos
+    Rvariables : list(np.array)
+        Es el resultado de utilizar la funcion bi_to_hex()
+    FitnessGeneracion: list
+        una lista de los fitness que tiene cada generacion para llevar el control
+    variables: int
+        umero de variables que queremos trabajar
+    poblacion : list(list(np.array))
+        Lista de matrices que represanta la poblacion en algortimos geneticos
+    cruce : float
+        Probabilidad entre (0,1) de que un individuo realice el proceso de cruce
+    mutacion : float
+        Probabilidad entre (0,1) de que un individuo realice el proceso de mutacion    
+    Returns
+    -------
+    poblacion: list(np.array)
+        Retorna la poblacion modificada
+    FitnessGeneracion: list()
+        Retorna un lista con la mejor fitness por Generacion
+    """
     
     df=pd.DataFrame({"Fitness":Fitness,"Coef":Rvariables})
     SortedFitness=sorted(Fitness)
