@@ -31,10 +31,10 @@ CODIGO_SIC=data[0].unique().tolist()
 
 
 ##Para la proyeccion de consumos se utilizo el MÉTODO DE HOLT - WINTERS,
-#La matematica y ejemplos graficos se encuentran en el archivo excel Plantilla PPCP NUEVA 9 de septiembre.xlsx
+#La matematica y ejemplos graficos se encuentran en el archivo excel Metodos de proyeccion series de tiempo.xlsx
 
 PredT=[]
-for frt in CODIGO_SIC:
+for frt in CODIGO_SIC: #Recorremos el dataframe de entrada segun el numero de Registros ingresados y se hace la prediccion a cada serie de tiempo
     p=data[data[0]==frt].iloc[0,3:].tolist()
     T=[]
     for i in range(len(p)):
