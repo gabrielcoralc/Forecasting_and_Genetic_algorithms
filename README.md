@@ -22,12 +22,12 @@ Para poder explicar la estructura de los algoritmos genéticos primero es necesa
 
 Entonces, la estructura de un algoritmo genético es la siguiente:
 
-- Se genera una población inicial de individuos (soluciones), usualmente de manera aleatoria.
-- Fase de evaluación: se evalúan los individuos de la población con la función fitness.
-- Fase de selección: se seleccionan los mejores individuos.
-- Fase de reproducción: se cruzan los individuos seleccionados mediante la función de cruce, dando lugar a una nueva generación que va a sustituir a la anterior. 
-- Fase de mutación: se introducen mutaciones (pequeños cambios) en ciertos individuos de la nueva población de manera aleatoria.
-- Tenemos una nueva generación, generalmente, con soluciones mejores que la anterior. Volvemos al punto 2.
+1. Se genera una población inicial de individuos (soluciones), usualmente de manera aleatoria.
+2. Fase de evaluación: se evalúan los individuos de la población con la función fitness.
+3. Fase de selección: se seleccionan los mejores individuos.
+4. Fase de reproducción: se cruzan los individuos seleccionados mediante la función de cruce, dando lugar a una nueva generación que va a sustituir a la anterior. 
+5. Fase de mutación: se introducen mutaciones (pequeños cambios) en ciertos individuos de la nueva población de manera aleatoria.
+6. Tenemos una nueva generación, generalmente, con soluciones mejores que la anterior. Volvemos al punto 2.
 
 Los algoritmos genéticos finalizan o bien cuando alcanzan un número de generaciones concreto o cuando cumplen una condición de parada.
 
